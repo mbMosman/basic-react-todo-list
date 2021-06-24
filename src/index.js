@@ -1,17 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createStore, applyMiddleware } from 'redux';
+import { combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import './index.css';
+import App from './components/App/App';
+import todoWatcher from './redux/todo.watcher.saga';
+import categoryList from './redux/category.reducer';
+import taskList from './redux/task.reducer';
+
+
+const sagaMiddleware = createSagaMiddleware();
+
+// Don't include logger in Redux middleware unless in development mode
+const middlewareList = process.env.NODE_ENV === 'development' ?
+  [sagaMiddleware, logger] :
+  [sagaMiddleware];
+
+const store = createStore(
+  // add each of the reducers to the store
+  combineReducers({
+    taskList,
+    categoryList,
+  }),
+  // adds listed middleware to the store
+  applyMiddleware(...middlewareList),
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Setup the taskWatcher in the saga middleware 
+sagaMiddleware.run(todoWatcher);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+);

@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Basic ToDo App w/ React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a basic ToDo app built with Node, Express, SQL, and React.
 
-## Available Scripts
+## Setup
+To run this application locally, you must first have Node.js and PostgreSQL installed.
 
-In the project directory, you can run:
+After downloading the code:
 
-### `yarn start`
+1. Create the database. Create a new database with the name `basic-todo`. Run the `database_tables.sql` file to setup the tables. (Note: The database name may be changed by updating the `server/modules/pool.js` file.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Optionally add test data by running the `database_test_data.sql` file.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Using the command line, go into the application directory and run the following commands to install dependencies `npm install`.
 
-### `yarn test`
+4. Build the React client application using `npm run build`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. Start the node server by running `npm start`. You should see that the server is running locally on port 5000. This will keep the console busy. When finished, you will need to stop the server with CTRL + C. 
 
-### `yarn build`
+6. View the application in the browser at [http://localhost:5000/](http://localhost:5000/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Functionality
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![](ScreenShot.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Current features:
 
-### `yarn eject`
+- Add a new task to the ToDo list
+- View all the tasks on the list
+- Mark a task complete
+- Delete a task from the list
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Upcoming releases will add support for:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Editing a task description, due date & completion status
+- Adding a confirmation dialog before deletion of a task
+- Enhanced styling to highlight tasks within 3 days of the due date
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Notes
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- This is a fairly basic application with minimal built-in error handling. More details are available from the server log on the command line.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The React client uses Redux to manage state. Redux sagas are used to handle the Ajax communication with the server.
